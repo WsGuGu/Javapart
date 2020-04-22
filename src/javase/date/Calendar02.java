@@ -17,11 +17,16 @@ public class Calendar02 {
         System.out.println("日\t一\t二\t三\t四\t五\t六");
         c.set(Calendar.DAY_OF_MONTH,1);
         int maxdate=c.getActualMaximum(Calendar.DATE);
+        int day=c.get(Calendar.DAY_OF_MONTH);
         for (int i=0;i<c.get(Calendar.DAY_OF_WEEK)-1;i++){
             System.out.print('\t');
         }
         for (int i=1;i<=maxdate;i++){
-            System.out.print(c.get(Calendar.DAY_OF_MONTH)+"\t");
+            if(day==c.get(Calendar.DAY_OF_MONTH)){
+                System.out.print(c.get(Calendar.DAY_OF_MONTH)+"*\t");
+            }else {
+                System.out.print(c.get(Calendar.DAY_OF_MONTH)+"\t");
+            }
             if(c.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY){
                 System.out.println();
             }
