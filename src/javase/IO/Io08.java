@@ -69,7 +69,5 @@ public class Io08 {
                 e.printStackTrace();
             }
         }
-
-
     }
 }
