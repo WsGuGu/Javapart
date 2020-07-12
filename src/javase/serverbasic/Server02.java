@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.Buffer;
 import java.util.Date;
 
 /**
@@ -16,7 +15,7 @@ import java.util.Date;
 public class Server02 {
     private ServerSocket serverSocket;
     public static void main(String[] args) {
-        Server01 server=new Server01();
+        Server02 server=new Server02();
         server.start();
     }
     //启动服务
@@ -51,7 +50,7 @@ public class Server02 {
             content.append("终于回来了.....");
             content.append("</body>");
             content.append("</html>");
-            int size=content.length();
+            int size=content.toString().getBytes().length;
             StringBuilder responseInfo=new StringBuilder();
             String blank=" ";
             String CRLF="\r\n";
