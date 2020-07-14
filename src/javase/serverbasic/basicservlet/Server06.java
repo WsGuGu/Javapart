@@ -1,8 +1,5 @@
 package javase.serverbasic.basicservlet;
 
-import javase.serverbasic.Request2;
-import javase.serverbasic.Response01;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;

@@ -1,7 +1,6 @@
-package javase.serverbasic;
+package javase.serverbasic.basic;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
