@@ -2,7 +2,6 @@ package javase.jsscript;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
 
 /**
  * @email:wildgugu@qq.com
