@@ -28,4 +28,5 @@ public class Emp {
         this.empno = empno;
         this.ename = ename;
     }
+
 }
