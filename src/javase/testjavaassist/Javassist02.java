@@ -1,6 +1,8 @@
 package javase.testjavaassist;
 
 import javassist.*;
+
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
 /**
@@ -21,12 +23,26 @@ public class Javassist02 {
         System.out.println(cc.getSuperclass());//获取父类
         System.out.println(cc.getInterfaces());//获得接口
     }
-    public static void test02(){
+    public static void test02() throws Exception {
         /*测试产生新的方法*/
-
+        ClassPool pool=ClassPool.getDefault();
+        ClassPath path=new ClassClassPath(Emp.class);//解决找不到class文件的问题
+        pool.appendClassPath(path);//解决找不到class文件的问题
+        CtClass cc=pool.get("javase.testjavaassist.Emp");
+//        CtMethod m=CtNewMethod.make("public int add(int a,int b){return a+b;}",cc);
+        CtMethod m=new CtMethod(CtClass.intType,"add",new CtClass[]{CtClass.intType,CtClass.intType},cc);
+        m.setModifiers(Modifier.PUBLIC);
+        m.setBody("{return $1+$2;}");
+        cc.addMethod(m);
+        //通过反射调用新生成的方法
+        Class clazz=cc.toClass();
+//        Object obj=clazz.newInstance();//通过调用emp无参构造器,创建对象
+//        Method method=clazz.getDeclaredMethod("add",int.class,int.class);
+//        Object result=method.invoke(obj,200,300);
+//        System.out.println(result);
     }
 
     public static void main(String[] args) throws Exception {
-        test01();
+        test02();
     }
 }

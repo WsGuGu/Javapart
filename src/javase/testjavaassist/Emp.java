@@ -8,6 +8,9 @@ public class Emp {
     private int empno;
     private String ename;
 
+    public Emp() {
+    }
+
     public int getEmpno() {
         return empno;
     }
