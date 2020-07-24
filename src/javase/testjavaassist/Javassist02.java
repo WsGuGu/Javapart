@@ -13,8 +13,6 @@ import java.util.Arrays;
 public class Javassist02 {
     public static void test01() throws Exception{
         ClassPool pool=ClassPool.getDefault();
-        ClassPath path=new ClassClassPath(Emp.class);//解决找不到class文件的问题
-        pool.appendClassPath(path);//解决找不到class文件的问题
         CtClass cc=pool.get("javase.testjavaassist.Emp");
         byte[] bytes=cc.toBytecode();
         System.out.println(Arrays.toString(bytes));
@@ -26,8 +24,6 @@ public class Javassist02 {
     public static void test02() throws Exception {
         /*测试产生新的方法*/
         ClassPool pool=ClassPool.getDefault();
-        ClassPath path=new ClassClassPath(Emp.class);//解决找不到class文件的问题
-        pool.appendClassPath(path);//解决找不到class文件的问题
         CtClass cc=pool.get("javase.testjavaassist.Emp");
 //        CtMethod m=CtNewMethod.make("public int add(int a,int b){return a+b;}",cc);
         CtMethod m=new CtMethod(CtClass.intType,"add",new CtClass[]{CtClass.intType,CtClass.intType},cc);
@@ -36,10 +32,10 @@ public class Javassist02 {
         cc.addMethod(m);
         //通过反射调用新生成的方法
         Class clazz=cc.toClass();
-//        Object obj=clazz.newInstance();//通过调用emp无参构造器,创建对象
-//        Method method=clazz.getDeclaredMethod("add",int.class,int.class);
-//        Object result=method.invoke(obj,200,300);
-//        System.out.println(result);
+        Object obj=clazz.newInstance();//通过调用emp无参构造器,创建对象
+        Method method=clazz.getDeclaredMethod("add",int.class,int.class);
+        Object result=method.invoke(obj,200,300);
+        System.out.println(result);
     }
 
     public static void main(String[] args) throws Exception {
