@@ -1,30 +1,47 @@
 package javase.testjavaassist;
 
-import javassist.*;
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.CtMethod;
+import javassist.Modifier;
+
+import java.lang.reflect.Method;
+import java.util.Arrays;
 
 /**
  * @email:wildgugu@qq.com
- * @Date:2020/7/20--17:40
- * 测试使用javassist创建一个新的类
+ * @Date:2020/7/21--16:19
+ * 测试javassist的API
  */
 public class Javassist01 {
-    public static void main(String[] args) throws Exception {
+    public static void test01() throws Exception{
         ClassPool pool=ClassPool.getDefault();
-        CtClass cc=pool.makeClass("javase.testjavaassist.Emp");
-        //创建属性
-        CtField f1=CtField.make("private int empno;",cc);
-        CtField f2=CtField.make("private String ename;",cc);
-        cc.addField(f1);
-        cc.addField(f2);
-        CtMethod m1=CtMethod.make("public int getEmpno() {return empno;}",cc);
-        CtMethod m2=CtMethod.make("public void setEmpno(int empno) { this.empno = empno; }",cc);
-        cc.addMethod(m1);
-        cc.addMethod(m2);
-        //添加构造器
-        CtConstructor constructor=new CtConstructor(new CtClass[]{CtClass.intType,pool.get("java.lang.String")},cc);
-        constructor.setBody("{this.empno=empno;this.ename=ename;}");
-        cc.addConstructor(constructor);
-        //输出
-        cc.writeFile("c:/");
+        CtClass cc=pool.get("javassistcase.Emp");
+        byte[] bytes=cc.toBytecode();
+        System.out.println(Arrays.toString(bytes));
+        System.out.println(cc.getName());
+        System.out.println(cc.getSimpleName());//获取简要类名
+        System.out.println(cc.getSuperclass());//获取父类
+        System.out.println(cc.getInterfaces());//获得接口
+    }
+    public static void test02() throws Exception {
+        /*测试产生新的方法*/
+        ClassPool pool=ClassPool.getDefault();
+        CtClass cc=pool.get("javassistcase.Emp");
+//        CtMethod m=CtNewMethod.make("public int add(int a,int b){return a+b;}",cc);
+        CtMethod m=new CtMethod(CtClass.intType,"add",new CtClass[]{CtClass.intType,CtClass.intType},cc);
+        m.setModifiers(Modifier.PUBLIC);
+        m.setBody("{return $1+$2;}");
+        cc.addMethod(m);
+        //通过反射调用新生成的方法
+        Class clazz=cc.toClass();
+        Object obj=clazz.getDeclaredConstructor().newInstance();//通过调用emp无参构造器,创建对象
+        Method method=clazz.getDeclaredMethod("add",int.class,int.class);
+        Object result=method.invoke(obj,200,300);
+        System.out.println(result);
+    }
+
+    public static void main(String[] args) throws Exception {
+        test02();
     }
 }

@@ -2,7 +2,7 @@ package javase.testjavaassist;
 
 /**
  * @email:wildgugu@qq.com
- * @Date:2020/7/20--17:52
+ * @Date:2020/7/24--17:28
  */
 public class Emp {
     private int empno;
@@ -31,5 +31,7 @@ public class Emp {
         this.empno = empno;
         this.ename = ename;
     }
-
+    public void sayHello(int a){
+        System.out.println("sayHello,"+a);
+    }
 }
