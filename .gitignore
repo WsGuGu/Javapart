@@ -1,5 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
-!/src/db.properties
-exercise.iml
+
+
 .idea
 out
+java/src/db.properties
