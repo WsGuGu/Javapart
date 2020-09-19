@@ -3,4 +3,4 @@
 exercise.iml
 .idea
 out
-!/src/db.properties
+src/db.properties
